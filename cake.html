@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Make a Wish 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* =================== THEME & FONTS =================== */
+:root {
+    --cake-pink: #f2b5d4;
+    --cake-dark-pink: #e898c2;
+    --cake-icing: #fff;
+    --text-color: #f4f6ff;
+    --bg-color: #0b0f19;
+    --accent-pink: #ff6fb5;
+    --accent-blue: #7cf7ff;
+    --accent-gold: #ffd166;
+}
+body { 
+    background: var(--bg-color); 
+    font-family: 'Poppins', sans-serif; 
+    color: var(--text-color); 
+    margin: 0;
+    padding: 0;
+}
+.container { max-width: 1120px; margin: auto; padding: 24px; }
+.hero.short-hero { 
+    min-height: 40vh; 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+}
+.cta-bottom { text-align: center; margin-top: 50px; }
+footer { text-align: center; padding: 40px 16px; color: #99a3c3; }
+
+/* =================== BUTTONS =================== */
+.btn { 
+    appearance: none; 
+    border: none; 
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+    padding: 14px 28px; 
+    border-radius: 16px; 
+    color: var(--bg-color); 
+    font-weight: 700; 
+    cursor: pointer; 
+    text-decoration: none; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease;
+    animation: pulse-button 2s infinite alternate;
+}
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-pink));
+}
+@keyframes pulse-button {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+/* =================== CAKE SCENE =================== */
+.cake-scene-container { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    padding-top: 50px; 
+    position: relative; 
+    min-height: 70vh; 
+    overflow: hidden; 
+}
+.cake-wrap { 
+    position: relative;
+    /* Cake is still, no floating animation */
+}
+.cake { position: relative; width: 250px; height: 300px; }
+.plate { width: 300px; height: 20px; background: radial-gradient(ellipse at center, #f5f5f5 0%, #e0e0e0 100%); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); border-radius: 50%; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+.layer { position: absolute; left: 50%; transform: translateX(-50%); height: 60px; border-radius: 50%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.layer::before { content: ''; position: absolute; top: 0; left: 5%; width: 90%; height: 100%; background: var(--cake-pink); border-radius: 50%; transform: translateY(-50%); box-shadow: 0 -3px 5px rgba(0,0,0,0.1); }
+.layer-bottom { bottom: 0px; width: 250px; background: linear-gradient(to right, var(--cake-dark-pink), var(--cake-pink), var(--cake-dark-pink)); }
+.layer-middle { bottom: 50px; width: 200px; background: linear-gradient(to right, var(--cake-dark-pink), var(--cake-pink), var(--cake-dark-pink)); }
+.layer-top { bottom: 100px; width: 150px; background: linear-gradient(to right, var(--cake-dark-pink), var(--cake-pink), var(--cake-dark-pink)); }
+.icing { position: absolute; bottom: 150px; left: 50%; width: 150px; height: 40px; border-radius: 50%; background: var(--cake-icing); transform: translateX(-50%); }
+.icing::before { content: ''; position: absolute; top: 0; left: 5%; width: 90%; height: 100%; background: var(--cake-icing); border-radius: 50%; transform: translateY(-50%); box-shadow: 0 -2px 5px rgba(0,0,0,0.1); }
+.drip { position: absolute; top: 60%; width: 20px; height: 35px; background: var(--cake-icing); border-radius: 0 0 50% 50% / 0 0 60% 60%; }
+.drip-1 { left: 10%; } .drip-2 { left: 75%; height: 25px; } .drip-3 { left: 45%; height: 30px; }
+.candle { position: absolute; bottom: 200px; left: 50%; transform: translateX(-50%); width: 14px; height: 60px; background: repeating-linear-gradient(45deg, #a2d2ff, #a2d2ff 5px, #bde0fe 5px, #bde0fe 10px); border-radius: 4px 4px 0 0; }
+.flame { position: absolute; bottom: 260px; left: 50%; transform: translateX(-50%); width: 18px; height: 25px; background: radial-gradient(circle at 50% 100%, var(--accent-gold) 0%, #ff5733 80%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; filter: drop-shadow(0 0 10px var(--accent-gold)); animation: flicker 1.5s ease-in-out infinite; }
+@keyframes flicker { 0%, 100% { transform: translateX(-50%) scaleY(1); } 50% { transform: translateX(-45%) scaleY(1.05); } }
+
+/* =================== INSTRUCTIONS =================== */
+.instructions-container {
+    text-align: center;
+    margin-top: 30px;
+}
+.instructions-container p,
+.instructions-container div {
+    margin: 0;
+    padding: 0;
+}
+.wish { 
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem; 
+    color: var(--text-color); 
+    min-height: 2.5rem; 
+    transition: opacity 0.5s ease; 
+    margin-bottom: 10px; 
+    /* No animation on this text */
+}
+.wish.visible { 
+    opacity: 1; 
+    animation: glow 1.5s ease-in-out infinite alternate; 
+}
+@keyframes glow { 
+    from { text-shadow: 0 0 10px #fff, 0 0 20px var(--accent-pink); } 
+    to { text-shadow: 0 0 20px #fff, 0 0 30px var(--accent-blue); } 
+}
+.subtitle {
+    font-size: 1.2rem;
+    color: #c7c7c7;
+    margin-top: -10px;
+}
+#mic-instruction {
+    margin-top: 10px; 
+}
+#mic-instruction small {
+    display: block; 
+    margin-top: 5px; 
+    opacity: 0.6;
+}
+#wishText {
+    font-family: 'Playfair Display', serif; /* New font for instructions */
+    font-size: 1.5rem;
+    line-height: 1.4;
+    color: var(--text-color);
+}
+/* =================== BACKGROUND & CONFETTI =================== */
+.confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+
+/* ========================================= */
+/* ===== PARALLAX FLOATING HEARTS ====== */
+/* ========================================= */
+.background-hearts-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    perspective: 1000px; /* This creates the 3D space */
+}
+
+/* Small, distant hearts */
+.soft-heart.far {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    animation: float-soft-heart 30s linear infinite;
+    transform: translateZ(-50px) rotate(-45deg); /* Pushed back in 3D space */
+}
+
+/* Medium, mid-distance hearts */
+.soft-heart.mid {
+    width: 20px;
+    height: 20px;
+    background: var(--accent-blue);
+    box-shadow: 0 0 10px var(--accent-blue);
+    animation: float-soft-heart 20s linear infinite;
+    transform: translateZ(-25px) rotate(-45deg); /* Closer than 'far' hearts */
+}
+
+/* Large, close hearts */
+.soft-heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: var(--accent-pink);
+    box-shadow: 0 0 15px var(--accent-pink);
+    transform: rotate(-45deg);
+    opacity: 0;
+    animation: float-soft-heart 15s linear infinite;
+}
+.soft-heart::before,
+.soft-heart::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: 50%;
+}
+.soft-heart::before {
+    top: -50%;
+    left: 0;
+}
+.soft-heart::after {
+    left: 50%;
+    top: 0;
+}
+
+/* Parallax floating animation */
+@keyframes float-soft-heart {
+    0% { transform: translateY(100vh) rotate(-45deg) scale(0.5); opacity: 0; }
+    20% { opacity: 0.6; transform: translateY(80vh) rotate(-45deg) scale(1); }
+    80% { opacity: 0.4; }
+    100% { transform: translateY(-20vh) rotate(-45deg) scale(0.8); opacity: 0; }
+}
+/* Animated Nebula Background */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    z-index: -1;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    transform-origin: center;
+}
+/* Nebula Cloud 1 (Pink/Gold) */
+body::before {
+    width: 120vmax;
+    height: 120vmax;
+    background: radial-gradient(circle, var(--accent-pink) 0%, transparent 50%);
+    filter: blur(80px);
+    opacity: 0.2;
+    animation: nebula-drift 30s linear infinite alternate;
+}
+/* Nebula Cloud 2 (Blue/Purple) */
+body::after {
+    width: 100vmax;
+    height: 100vmax;
+    background: radial-gradient(circle, var(--accent-blue) 0%, transparent 50%);
+    filter: blur(100px);
+    opacity: 0.3;
+    animation: nebula-drift 40s linear infinite alternate-reverse;
+}
+@keyframes nebula-drift {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+/* New celebration text styles */
+.hidden {
+    display: none;
+}
+#celebration-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: var(--accent-gold);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px var(--accent-pink);
+    margin-top: 20px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+#celebration-text.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+.letter {
+    display: inline-block;
+    position: relative;
+    animation: sparkle 0.5s ease-in-out forwards;
+    animation-delay: var(--delay);
+}
+@keyframes sparkle {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+/* Animated Gradient Text for H1 */
+.gradient-text {
+    background: linear-gradient(45deg, var(--accent-pink), var(--accent-blue), var(--accent-gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-gradient 4s linear infinite;
+}
+
+@keyframes text-gradient {
+    to {
+        background-position: 200% center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="background-hearts-container">
+    <!-- Restored floating hearts HTML -->
+    <div class="soft-heart" style="left: 10%; animation-duration: 16s; animation-delay: 0s;"></div>
+    <div class="soft-heart" style="left: 20%; animation-duration: 20s; animation-delay: 2s;"></div>
+    <div class="soft-heart" style="left: 35%; animation-duration: 18s; animation-delay: 4s;"></div>
+    <div class="soft-heart" style="left: 50%; animation-duration: 15s; animation-delay: 6s;"></div>
+    <div class="soft-heart" style="left: 65%; animation-duration: 22s; animation-delay: 8s;"></div>
+    <div class="soft-heart" style="left: 75%; animation-duration: 19s; animation-delay: 10s;"></div>
+    <div class="soft-heart" style="left: 90%; animation-duration: 17s; animation-delay: 12s;"></div>
+    <div class="soft-heart" style="left: 15%; animation-duration: 25s; animation-delay: 1s;"></div>
+    <div class="soft-heart" style="left: 45%; animation-duration: 21s; animation-delay: 5s;"></div>
+    <div class="soft-heart" style="left: 80%; animation-duration: 18s; animation-delay: 9s;"></div>
+    <div class="soft-heart" style="left: 5%; animation-duration: 19s; animation-delay: 11s;"></div>
+    <div class="soft-heart" style="left: 55%; animation-duration: 23s; animation-delay: 7s;"></div>
+    <div class="soft-heart" style="left: 25%; animation-duration: 17s; animation-delay: 3s;"></div>
+    <div class="soft-heart" style="left: 85%; animation-duration: 20s; animation-delay: 13s;"></div>
+    <div class="soft-heart" style="left: 40%; animation-duration: 24s; animation-delay: 15s;"></div>
+</div>
+
+<audio id="bg-music" loop>
+    <source src="saibo.mp3" type="audio/mpeg">
+</audio>
+
+<header class="hero short-hero">
+    <div class="hero-inner container">
+        <!-- Reverted to simple heading, no transparent box -->
+        <h1 class="wish gradient-text">Make a Wish ✨</h1>
+        <p class="subtitle">A special cake for a special day.</p>
+    </div>
+</header>
+
+<main class="cake-scene-container">
+    <div class="cake-wrap">
+        <div class="cake">
+            <div class="plate"></div>
+            <div class="layer layer-bottom"></div>
+            <div class="layer layer-middle"></div>
+            <div class="layer layer-top"></div>
+            <div class="icing">
+                <div class="drip drip-1"></div>
+                <div class="drip drip-2"></div>
+                <div class="drip drip-3"></div>
+            </div>
+            <div class="candle"></div>
+            <div class="flame" id="flame"></div>
+        </div>
+    </div>
+    
+    <div class="instructions-container">
+        <!-- The instructions now use the Playfair Display font and are not animated -->
+       <div class="instructions-container">
+    <p class="wish" id="wishText" style="font-family: 'Playfair Display', serif; font-size: 1.5rem;">
+        Close your eyes, make a wish...<br>
+        Blow into your microphone to put out the candle!
+    </p>
+    <div id="celebration-text" class="hidden"></div>
+    <button class="btn" id="blow" style="display: none;">Blow Candles 🎉</button>
+</div>
+        <div id="mic-instruction" style="font-family: 'Poppins', sans-serif;">
+            <small>(You may need to allow microphone access)</small>
+        </div>
+        <button class="btn" id="blow" style="display: none;">Blow Candles 🎉</button>
+    </div>
+
+    <canvas id="confetti" class="confetti"></canvas>
+</main>
+
+<div class="cta-bottom container">
+    <a class="btn" href="index.html">Back Home 🏡</a>
+</div>
+
+<footer>
+    Made with 💖 by Ishu • For my Di • 27 Aug
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const myAudio = document.getElementById('bg-music');
+    if (myAudio) {
+        const isPlaying = sessionStorage.getItem('audioPlaying');
+        const audioTime = sessionStorage.getItem('audioTime');
+        if (isPlaying === 'true' && audioTime) {
+            myAudio.currentTime = parseFloat(audioTime);
+            myAudio.play().catch(e => console.log("Audio play failed."));
+        }
+        window.addEventListener('beforeunload', () => {
+            if (!myAudio.paused) {
+                sessionStorage.setItem('audioTime', myAudio.currentTime);
+                sessionStorage.setItem('audioPlaying', 'true');
+            } else {
+                sessionStorage.removeItem('audioPlaying');
+            }
+        });
+    }
+
+    const flameElement = document.getElementById('flame');
+    if (flameElement) {
+        const wishText = document.getElementById('wishText');
+        const micInstruction = document.getElementById('mic-instruction');
+        const blowButton = document.getElementById('blow');
+        let candleBlownOut = false;
+        
+        const confettiCanvas = document.getElementById('confetti');
+        let burstConfetti;
+
+        if (confettiCanvas) {
+            const ctx = confettiCanvas.getContext('2d');
+            let W, H; let pieces = []; let running = false;
+            const colors = ['#ff6fb5', '#7cf7ff', '#ffd166', '#b69cff', '#7CFFB2'];
+            const resize = () => { W = confettiCanvas.width = window.innerWidth; H = confettiCanvas.height = window.innerHeight; };
+            window.addEventListener('resize', resize); resize();
+            
+            burstConfetti = function() {
+                pieces = [];
+                for (let i = 0; i < 200; i++) {
+                    pieces.push({ x: W / 2, y: H / 3, r: 4 + Math.random() * 6, vx: (Math.random() - 0.5) * 10, vy: -(5 + Math.random() * 10), g: .1, rot: Math.random() * 360, col: colors[(Math.random() * colors.length) | 0] });
+                }
+                if (!running) { 
+                    running = true; 
+                    requestAnimationFrame(loop); 
+                }
+            };
+
+            function loop() {
+                if (!running) return;
+                ctx.clearRect(0, 0, W, H);
+
+                for (const p of pieces) {
+                    p.vy += p.g; 
+                    p.x += p.vx; 
+                    p.y += p.vy; 
+                    p.rot += 6;
+
+                    let opacity = 1 - (p.y / H);
+                    if (opacity < 0) opacity = 0;
+
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rot * Math.PI / 180);
+                    ctx.globalAlpha = opacity; 
+                    ctx.fillStyle = p.col;
+                    ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r);
+                    ctx.restore();
+                }
+
+                ctx.globalAlpha = 1; 
+
+                pieces = pieces.filter(p => p.y < H + 50);
+
+                if (pieces.length > 0) {
+                    requestAnimationFrame(loop);
+                } else {
+                    running = false;
+                }
+            }
+        }
+
+        function blowOutCandle() {
+            if (candleBlownOut) return;
+            candleBlownOut = true;
+            flameElement.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            flameElement.style.opacity = '0';
+            flameElement.style.transform = 'translateX(-50%) translateY(20px)';
+            micInstruction.style.display = 'none';
+            setTimeout(() => {
+                wishText.textContent = 'Happy Birthday, Di! Wish Granted! 💖';
+                wishText.classList.add('visible');
+                if (typeof burstConfetti === 'function') {
+                    burstConfetti();
+                }
+            }, 500);
+        }
+
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                const audioContext = new AudioContext();
+                const analyser = audioContext.createAnalyser();
+                const microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+                analyser.fftSize = 512;
+                const buffer = new Uint8Array(analyser.frequencyBinCount);
+                function detectBlow() {
+                    analyser.getByteFrequencyData(buffer);
+                    let sum = buffer.reduce((a, b) => a + b, 0);
+                    let average = sum / buffer.length;
+                    if (average > 90) { blowOutCandle(); } 
+                    else if (!candleBlownOut) { requestAnimationFrame(detectBlow); }
+                }
+                detectBlow();
+            }).catch(err => {
+                console.log("Mic access denied:", err);
+                micInstruction.style.display = 'none';
+                blowButton.style.display = 'inline-block';
+            });
+        } else {
+            micInstruction.style.display = 'none';
+            blowButton.style.display = 'inline-block';
+        }
+        blowButton.addEventListener('click', blowOutCandle);
+    }
+    function blowOutCandle() {
+    if (candleBlownOut) return;
+    candleBlownOut = true;
+    flameElement.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+    flameElement.style.opacity = '0';
+    flameElement.style.transform = 'translateX(-50%) translateY(20px)';
+    micInstruction.style.display = 'none';
+
+    setTimeout(() => {
+        // Hide the original wish text
+        const wishText = document.getElementById('wishText');
+        wishText.style.display = 'none';
+
+        const message = 'Happy Birthday, Di! 💖';
+        const celebrationDiv = document.getElementById('celebration-text');
+        
+        // Populate the celebration text with individual letters
+        for (let i = 0; i < message.length; i++) {
+            const letterSpan = document.createElement('span');
+            letterSpan.className = 'letter';
+            letterSpan.textContent = message[i];
+            letterSpan.style.setProperty('--delay', `${i * 0.05}s`);
+            celebrationDiv.appendChild(letterSpan);
+        }
+
+        // Make the celebration text visible with a transition
+        celebrationDiv.classList.remove('hidden');
+        celebrationDiv.classList.add('visible');
+
+        if (typeof burstConfetti === 'function') {
+            burstConfetti();
+        }
+    }, 500);
+}
+});
+</script>
+
+</body>
+</html>

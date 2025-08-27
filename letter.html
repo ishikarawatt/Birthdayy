@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Letter 💌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ==================== THEME & BASE STYLES ==================== */
+:root {
+    --bg-color: #0b0f19;
+    --card-bg: #151d38;
+    --text-color: #f4f6ff;
+    --muted-color: #99a3c3;
+    --accent-pink: #ff6fb5;
+    --accent-blue: #7cf7ff;
+    --accent-gold: #ffd166;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg-color);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    animation: fade-in-page 1s ease-out forwards;
+}
+
+@keyframes fade-in-page {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.container {
+    max-width: 1120px;
+    margin: auto;
+    padding: 24px;
+}
+
+/* ==================== HEADER ==================== */
+header.hero {
+    position: relative;
+    min-height: 40vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 40px 24px;
+}
+.hero-inner {
+    position: relative;
+    z-index: 2;
+}
+header.hero h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.1;
+    color: var(--text-color);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    
+    /* Gradient Text Effect */
+    background: linear-gradient(45deg, var(--accent-pink), var(--accent-blue), var(--accent-gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-gradient 4s linear infinite;
+}
+@keyframes text-gradient {
+    to {
+        background-position: 200% center;
+    }
+}
+.subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: var(--muted-color);
+    margin-top: 10px;
+}
+.cta {
+    margin-top: 26px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.btn {
+    appearance: none;
+    border: none;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+    padding: 14px 28px;
+    border-radius: 16px;
+    color: var(--bg-color);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+#play-music {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+/* ==================== MAIN LETTER SECTION ==================== */
+.main-letter-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+.letter-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.8;
+    position: relative;
+    z-index: 2;
+    
+    /* Animated Gradient Border */
+    border: none;
+    background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
+                linear-gradient(45deg, var(--accent-pink), var(--accent-blue)) border-box;
+    border-radius: 20px;
+    border: 3px solid transparent;
+    animation: gradient-border 4s ease-in-out infinite;
+}
+@keyframes gradient-border {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.letter-card p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    text-align: left;
+}
+.letter-card h3 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: var(--accent-pink);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+.letter-signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    margin-top: 40px;
+    text-align: right;
+    color: var(--accent-blue);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ==================== BACKGROUND ANIMATION (Parallax Hearts) ==================== */
+.background-hearts-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+.soft-heart {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    background: var(--color);
+    transform: rotate(-45deg) translateZ(var(--z-depth));
+    opacity: 0;
+    animation-name: float-soft-heart;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.soft-heart::before,
+.soft-heart::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: 50%;
+}
+.soft-heart::before {
+    top: -50%;
+    left: 0;
+}
+.soft-heart::after {
+    left: 50%;
+    top: 0;
+}
+@keyframes float-soft-heart {
+    0% { transform: translateY(100vh) rotate(-45deg) scale(0.5); opacity: 0; }
+    20% { opacity: 0.6; transform: translateY(80vh) rotate(-45deg) scale(1); }
+    80% { opacity: 0.4; }
+    100% { transform: translateY(-20vh) rotate(-45deg) scale(0.8); opacity: 0; }
+}
+
+/* ==================== FOOTER ==================== */
+.cta-bottom {
+    text-align: center;
+    margin: 40px auto;
+}
+footer {
+    margin-top: auto;
+}
+</style>
+</head>
+<body>
+<div class="background-hearts-container">
+    <div class="soft-heart" style="left: 10%; --size: 30px; --color: var(--accent-pink); --z-depth: -50px; animation-duration: 16s; animation-delay: 0s;"></div>
+    <div class="soft-heart" style="left: 20%; --size: 20px; --color: var(--accent-blue); --z-depth: -100px; animation-duration: 20s; animation-delay: 2s;"></div>
+    <div class="soft-heart" style="left: 35%; --size: 40px; --color: var(--accent-pink); --z-depth: 0px; animation-duration: 18s; animation-delay: 4s;"></div>
+    <div class="soft-heart" style="left: 50%; --size: 25px; --color: var(--accent-blue); --z-depth: -75px; animation-duration: 15s; animation-delay: 6s;"></div>
+    <div class="soft-heart" style="left: 65%; --size: 35px; --color: var(--accent-pink); --z-depth: -25px; animation-duration: 22s; animation-delay: 8s;"></div>
+    <div class="soft-heart" style="left: 75%; --size: 20px; --color: var(--accent-blue); --z-depth: -120px; animation-duration: 19s; animation-delay: 10s;"></div>
+    <div class="soft-heart" style="left: 90%; --size: 30px; --color: var(--accent-pink); --z-depth: -10px; animation-duration: 17s; animation-delay: 12s;"></div>
+    <div class="soft-heart" style="left: 15%; --size: 25px; --color: var(--accent-blue); --z-depth: -80px; animation-duration: 25s; animation-delay: 1s;"></div>
+    <div class="soft-heart" style="left: 45%; --size: 35px; --color: var(--accent-pink); --z-depth: -30px; animation-duration: 21s; animation-delay: 5s;"></div>
+    <div class="soft-heart" style="left: 80%; --size: 40px; --color: var(--accent-blue); --z-depth: -60px; animation-duration: 18s; animation-delay: 9s;"></div>
+    <div class="soft-heart" style="left: 5%; --size: 20px; --color: var(--accent-pink); --z-depth: -90px; animation-duration: 19s; animation-delay: 11s;"></div>
+    <div class="soft-heart" style="left: 55%; --size: 30px; --color: var(--accent-blue); --z-depth: -40px; animation-duration: 23s; animation-delay: 7s;"></div>
+    <div class="soft-heart" style="left: 25%; --size: 35px; --color: var(--accent-pink); --z-depth: -10px; animation-duration: 17s; animation-delay: 3s;"></div>
+    <div class="soft-heart" style="left: 85%; --size: 20px; --color: var(--accent-blue); --z-depth: -110px; animation-duration: 20s; animation-delay: 13s;"></div>
+    <div class="soft-heart" style="left: 40%; --size: 45px; --color: var(--accent-pink); --z-depth: -5px; animation-duration: 24s; animation-delay: 15s;"></div>
+</div>
+
+<header class="hero">
+  <audio id="bg-music" loop>
+  <source src="saibo.mp3" type="audio/mpeg">
+</audio>
+
+  <div class="hero-inner container">
+    <h1 class="gradient-text">A Letter for My Di 💖</h1>
+    <p class="subtitle">From the bottom of my heart 🫶</p>
+   
+  </div>
+</header>
+
+<section class="container letter-card main-letter-section">
+  <h3>Hey Di,</h3>
+  <p>
+Happiest Birthday, meri pyaari Di 💖<br>
+
+Sorry Di… mai aapko koi gift nahi de paayi, par Kanha ji ne toh mujhe sabse khoobsurat gift de rakha hai — aap. 🌸 Truly, I feel so grateful and so special ki meri life mein aap jaisi Di ho… aur woh bhi iss pyaare din ki wajah se. 🫶<br>
+
+Bas ek request hai… hamesha aise hi muskurate rehna. Ik mai aapko bahut pareshan karti hu (shyd sabse zyada ), but aapko nahi karungi toh aur kisko karungi? Aur sach bolu toh… aap mere rough aur tough days mein hamesha mere saath hote ho, protect karte ho, support karte ho, comfort karte ho… par jab aapko meri zarurat hoti hai, mai kabhi utna nahi ho paayi. Uske liye genuinely I’m sorry, Di. :) <br>
+
+Aap mujhe hamesha choti behen ki tarah rakhti ho… utna pyaar aur care deti ho jitna shayad ek real sis bhi na kare. Aur uske liye mera dil se thank you. Birthday aapka hai, lekin grateful main ho rahi hu — as usual, dumb me 🙈. But sach mei, thank you Di, iss dumbo ko apna banane ke liye. Aur ek thank you Kanha ji ke liye, jo shayad kabhi kam nahi ho paayega… kyunki unhone meri life mein aapko daal kar mujhe sabse badi blessing de di. 💗<br>
+
+Mai express nahi karti, shayad kabhi karti hi nahi… lekin aapne kabhi mujhe question nahi kiya. Shayad isliye kyunki aapko pata hai ki aap mere liye kitni important ho. Di, aap meri life ki woh jagah ho jo kabhi koi le hi nahi sakta… na ab tak aaya, na kabhi aa paayega.<br>
+
+THANK YOU, SIS, for being there for me, for everything you do, and for being YOU. I love you beyond words, and I miss you so much.Hamesha smile krte rhena ....agar aapka man nahi bhi hora hoga to mummy papa bhaiya aur kanha ji ke baare mai sochke smile kr dena but krna zrur. Kanha ji hume har janam saath rkhe aur aapko mjhse badi hi bnaye kyuki aap hi perfect beth te ho meri badi bhen ke role mai . Happiest Birthday once again, my most precious person. 💖
+  </p>
+  <p class="letter-signature">
+    Love, <br> Ishu 💗
+  </p>
+</section>
+
+<div class="cta-bottom container">
+    <a class="btn" href="index.html">Back Home 🏡</a>
+</div>
+
+<footer>
+  Made with 💖 by Ishu • For my Di • 27 Aug
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const myAudio = document.getElementById('bg-music');
+    const playBtn = document.getElementById('play-music');
+
+    if (myAudio) {
+        const isPlaying = sessionStorage.getItem('audioPlaying');
+        const audioTime = sessionStorage.getItem('audioTime');
+
+        function loadAudioState() {
+            if (isPlaying === 'true' && audioTime) {
+                myAudio.currentTime = parseFloat(audioTime);
+                myAudio.play().catch(e => {
+                    console.log("Audio play was interrupted by browser.");
+                    if (playBtn) playBtn.style.display = 'block';
+                });
+                if (playBtn) playBtn.style.display = 'none';
+            } else {
+                if (playBtn) playBtn.style.display = 'block';
+            }
+        }
+        loadAudioState();
+        
+        if (playBtn) {
+            playBtn.addEventListener('click', function() {
+                myAudio.play();
+                if (playBtn) playBtn.style.display = 'none';
+            });
+        }
+
+        window.addEventListener('beforeunload', () => {
+            if (!myAudio.paused) {
+                sessionStorage.setItem('audioTime', myAudio.currentTime);
+                sessionStorage.setItem('audioPlaying', 'true');
+            } else {
+                sessionStorage.removeItem('audioPlaying');
+            }
+        });
+    }
+
+    // --- Parallax heart scroll effect ---
+    const hearts = document.querySelectorAll('.soft-heart');
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY;
+        hearts.forEach(heart => {
+            const zDepth = parseFloat(heart.style.getPropertyValue('--z-depth'));
+            const speed = -zDepth * 0.1; // Adjust speed based on depth
+            heart.style.transform = `rotate(-45deg) translateZ(${zDepth}px) translateY(${scrollPosition * speed}px)`;
+        });
+    });
+});
+</script>
+</body>
+</html>
